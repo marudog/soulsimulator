@@ -7,8 +7,8 @@ const enhanceRates = [0.4, 0.35, 0.2, 0.18, 0.15, 0.1];
 const goldCosts = [1000000, 2000000, 4000000, 8000000, 16000000, 32000000];
 const itemCosts = [1, 5, 10, 15, 20, 25];
 function toRoman(num) {
-  const roman = ['', 'I', 'II', 'III', 'IV', 'V'];
-  return roman[num] || num;
+	const roman = ['', 'I', 'II', 'III', 'IV', 'V'];
+	return roman[num] || num;
 }
 
 let totalGoldUsed = 0;
@@ -80,12 +80,18 @@ function tryEnhance() {
 		stats[level].success++;
 		showImage(stepImages[level].success);
 		level++;
-		logMessage(`성공! 오버클럭 단계가 +${level}(으)로 상승했습니다!`);
+
+		if (level !== 1) {
+			logMessage(`성공! 오버클럭 단계가 ${toRoman(level-1)}로 상승했습니다!`);
+		}
+		else {
+			logMessage(`성공! 오버클럭 상태가 되었습니다!`);
+		}
 	} else {
 		stats[level].fail++;
 		showImage(stepImages[level].fail);
 		level = 0;
-		logMessage(`실패... 오버클럭 단계가 0으로 초기화되었습니다.`);
+		logMessage(`실패... 오버클럭 단계가 초기화되었습니다.`);
 	}
 
 	document.getElementById("level").innerText = `현재 오버클럭 단계: +${level}`;
@@ -133,7 +139,7 @@ updateStatsTable();
 
 function updateNextCost() {
 	if (level >= enhanceRates.length) {
-		document.getElementById("nextCost").innerText = "오버클럭 완료 - 더 이상 비용 없음";
+		document.getElementById("nextCost").innerText = "오버클럭 완료";
 	} else {
 		const gold = goldCosts[level].toLocaleString();
 		const item = itemCosts[level];
