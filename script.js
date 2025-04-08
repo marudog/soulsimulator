@@ -2,8 +2,8 @@ let level = 0;
 let totalAttempts = 0;
 
 // 단계별 성공 확률
-//const enhanceRates = [0.4, 0.35, 0.2, 0.18, 0.15, 0.1];
-const enhanceRates = [1, 1, 1, 1, 1, 1];
+const enhanceRates = [0.4, 0.35, 0.2, 0.18, 0.15, 0.1];
+// const enhanceRates = [1, 1, 1, 1, 1, 1];
 
 const goldCosts = [1000000, 2000000, 4000000, 8000000, 16000000, 32000000];
 const itemCosts = [1, 5, 10, 15, 20, 25];
