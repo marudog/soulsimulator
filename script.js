@@ -253,7 +253,14 @@ function simulateUntilMax() {
 	logMessage(`💰 사용한 제니: ${simGold.toLocaleString()}`);
 	logMessage(`📦 사용한 정수: ${simItems}개`);
 	for (let i = 0; i < simStats.length; i++) {
-		logMessage(`+${i} → +${i + 1} : 성공 ${simSuccessStats[i]}회 / 실패 ${simFailStats[i]}회`);
+		if (i !== 0)
+		{
+			logMessage(`${toRoman(i-1)} → ${toRoman(i)} : 성공 ${simSuccessStats[i]}회 / 실패 ${simFailStats[i]}회`);
+		}
+		else
+		{
+			logMessage(`9강 → ${toRoman(i)} : 성공 ${simSuccessStats[i]}회 / 실패 ${simFailStats[i]}회`);
+		}
 	}
 
 	showImage(stepImages[5].success);
