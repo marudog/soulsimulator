@@ -70,7 +70,7 @@ function tryEnhance() {
 	totalItemsUsed += itemsUsed;
 
 	// UI 업데이트
-	document.getElementById("usedGold").innerText = `누적 사용 제니: ${totalGoldUsed.toLocaleString()} G`;
+	document.getElementById("usedGold").innerText = `누적 사용 제니: ${totalGoldUsed.toLocaleString()}`;
 	document.getElementById("usedItems").innerText = `누적 사용 정수: ${totalItemsUsed}개`;
 
 	const successRate = enhanceRates[level];
@@ -236,7 +236,7 @@ function simulateUntilMax() {
 	// 결과 로그 한 번에 출력
 	logMessage(`🎯 시뮬레이션 결과: V 도달!`);
 	logMessage(`🔁 총 시도 횟수: ${simAttempts}회`);
-	logMessage(`💰 사용한 제니: ${simGold.toLocaleString()} G`);
+	logMessage(`💰 사용한 제니: ${simGold.toLocaleString()}`);
 	logMessage(`📦 사용한 정수: ${simItems}개`);
 	for (let i = 0; i < simStats.length; i++) {
 		logMessage(`+${i} → +${i + 1} : 성공 ${simSuccessStats[i]}회 / 실패 ${simFailStats[i]}회`);
