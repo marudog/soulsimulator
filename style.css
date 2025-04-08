@@ -1,0 +1,113 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.left-panel,
+.right-panel {
+  flex: 1;
+  max-width: 600px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#log {
+  height: 300px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #f9f9f9;
+  font-size: 14px;
+}
+
+#gif {
+  margin-top: 20px;
+  max-width: 100%;
+}
+
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #aaa;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #eee;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.status {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+#probabilityModal table,
+#probabilityModal th,
+#probabilityModal td {
+  border: 1px solid #aaa;
+  padding: 6px;
+  text-align: center;
+}
+
+#probabilityModal th {
+  background: #eee;
+}
+
+#statsTable th,
+#statsTable td {
+  text-align: center;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+#statsTable th:nth-child(1),
+#statsTable td:nth-child(1) {
+  width: 60px; /* 단계 */
+}
+
+#statsTable th:nth-child(2),
+#statsTable td:nth-child(2) {
+  width: 80px; /* 성공 횟수 */
+}
+
+#statsTable th:nth-child(3),
+#statsTable td:nth-child(3) {
+  width: 80px; /* 실패 횟수 */
+}
+
+#statsTable th:nth-child(4),
+#statsTable td:nth-child(4) {
+  width: 90px; /* 실제 확률 */
+}
+
+#statsTable th:nth-child(5),
+#statsTable td:nth-child(5) {
+  width: 90px; /* 예상 확률 */
+}
+
+#statsTable th:nth-child(6),
+#statsTable td:nth-child(6) {
+  width: 80px; /* 오차 */
+}
