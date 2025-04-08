@@ -74,7 +74,7 @@ function tryEnhance() {
 	document.getElementById("usedItems").innerText = `누적 사용 정수: ${totalItemsUsed}개`;
 
 	const successRate = enhanceRates[level];
-	const roll = Math.random();
+	const roll = getSecureRandom();
 
 	if (roll < successRate) {
 		stats[level].success++;
@@ -105,6 +105,12 @@ function tryEnhance() {
 	updateStatsTable();
 	updateNextCost();
 	updateSuccessRate();
+}
+
+function getSecureRandom() {
+	const array = new Uint32Array(1);
+	window.crypto.getRandomValues(array);
+	return array[0] / (0xFFFFFFFF + 1);
 }
 
 function logMessage(msg) {
@@ -204,7 +210,7 @@ function simulateUntilMax() {
 
 	while (simLevel < enhanceRates.length) {
 		const rate = enhanceRates[simLevel];
-		const roll = Math.random();
+		const roll = getSecureRandom();
 
 		simAttempts++;
 		simGold += goldCosts[simLevel];
