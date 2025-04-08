@@ -2,7 +2,8 @@ let level = 0;
 let totalAttempts = 0;
 
 // 단계별 성공 확률
-const enhanceRates = [0.4, 0.35, 0.2, 0.18, 0.15, 0.1];
+//const enhanceRates = [0.4, 0.35, 0.2, 0.18, 0.15, 0.1];
+const enhanceRates = [1, 1, 1, 1, 1, 1];
 
 const goldCosts = [1000000, 2000000, 4000000, 8000000, 16000000, 32000000];
 const itemCosts = [1, 5, 10, 15, 20, 25];
@@ -100,7 +101,7 @@ function tryEnhance() {
 	}
 	else
 	{
-		document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(level)}`;		
+		document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(level-1)}`;		
 	}
 	updateStatsTable();
 	updateNextCost();
@@ -239,7 +240,7 @@ function simulateUntilMax() {
 	totalGoldUsed += simGold;
 	totalItemsUsed += simItems;
 
-	document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(level)}`;
+	document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(level-1)}`;
 	document.getElementById("totalAttempts").innerText = `총 오버클럭 시도: ${totalAttempts}회`;
 	document.getElementById("usedGold").innerText = `누적 사용 제니: ${totalGoldUsed.toLocaleString()}`;
 	document.getElementById("usedItems").innerText = `누적 사용 정수: ${totalItemsUsed}개`;
