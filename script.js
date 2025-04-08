@@ -94,7 +94,14 @@ function tryEnhance() {
 		logMessage(`실패... 오버클럭 단계가 초기화되었습니다.`);
 	}
 
-	document.getElementById("level").innerText = `현재 오버클럭 단계: +${level}`;
+	if (level == 0)
+	{
+		document.getElementById("level").innerText = `현재 오버클럭 단계: 9강`;
+	}
+	else
+	{
+		document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(level)}`;		
+	}
 	updateStatsTable();
 	updateNextCost();
 	updateSuccessRate();
@@ -226,7 +233,7 @@ function simulateUntilMax() {
 	totalGoldUsed += simGold;
 	totalItemsUsed += simItems;
 
-	document.getElementById("level").innerText = `현재 오버클럭 단계: +${level}`;
+	document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(level)}`;
 	document.getElementById("totalAttempts").innerText = `총 오버클럭 시도: ${totalAttempts}회`;
 	document.getElementById("usedGold").innerText = `누적 사용 제니: ${totalGoldUsed.toLocaleString()}`;
 	document.getElementById("usedItems").innerText = `누적 사용 정수: ${totalItemsUsed}개`;
@@ -262,8 +269,8 @@ function resetEnhanceState({ resetLog = true, resetStatsData = true, resetLevel 
 	if (resetStatsData) resetStats();
 	if (resetLevel) {
 		level = 0;
-		document.getElementById("level").innerText = `현재 오버클럭 단계: 0`;
-		updateNextCost();
+		document.getElementById("level").innerText = `현재 오버클럭 단계: 9강`;
+		updateNextCost()
 		updateSuccessRate();
 	}
 }
