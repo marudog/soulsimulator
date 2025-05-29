@@ -270,6 +270,27 @@ function clearLog() {
 	document.getElementById("log").innerHTML = "";
 }
 
+function allReset(){
+	resetStats()
+	
+	level = 0;
+    totalAttempts = 0;
+    totalGoldUsed = 0;
+    totalItemsUsed = 0;
+
+    document.getElementById('level').innerText = '현재 오버클럭 단계: 9강';
+    document.getElementById('totalAttempts').innerText = '총 오버클럭 시도: 0회';
+    document.getElementById('usedGold').innerText = '누적 사용 제니: 0';
+    document.getElementById('usedItems').innerText = '누적 사용 정수: 0개';
+    document.getElementById('nextCost').innerText = '다음 단계 오버클럭 비용: 1,000,000 / 1개';
+    document.getElementById('successRate').innerText = '📈 현재 단계 성공 확률: 40%';
+
+	updateNextCost();      // ← 이거 꼭 호출!
+    updateSuccessRate();   // ← 이거 꼭 호출!
+
+	clearLog();
+}
+
 function resetStats() {
 	stats.forEach((entry) => {
 		entry.success = 0;
