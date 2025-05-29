@@ -26,8 +26,10 @@
 			<div class="status" id="usedItems">누적 사용 정수: 0개</div>
 			<div class="status" id="nextCost">다음 단계 오버클럭 비용: 1,000,000 / 1개</div>
 			<div class="status" id="successRate">📈 현재 단계 성공 확률: 40%</div>
+			<button onclick="tryEnhance()">오버클럭</button>
 			<button id="startBtn" onclick="startAutoEnhance()">자동 반복 오버클럭</button>
 			<button onclick="simulateUntilMax()">V 오버클럭</button>
+			<button onclick="resetEnhanceState()">초기화</button>
 			<button onclick="showProbabilityTable()">확률 보기</button>
 			<div id="autoControls" style="height: 60px; display: flex; gap: 5px;">
 				<button id="pauseBtn" onclick="pauseAutoEnhance()" style="display: none;">⏸ 일시 정지</button>
