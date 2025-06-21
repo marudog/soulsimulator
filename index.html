@@ -20,15 +20,27 @@
 
 		<!-- 오른쪽 패널: 상태 + 버튼 + 통계 -->
 		<div class="right-panel">
+			<div style="margin-bottom:10px;">
+				<label for="targetLevel">목표 오버클럭 단계:</label>
+				<select id="targetLevel">
+					<option value="1">0</option>
+					<option value="2">I</option>
+					<option value="3">II</option>
+					<option value="4">III</option>
+					<option value="5">IV</option>
+					<option value="6">V</option>
+				</select>
+			</div>
 			<div class="status" id="level">현재 오버클럭 단계: 9강</div>
 			<div class="status" id="totalAttempts">총 오버클럭 시도: 0회</div>
 			<div class="status" id="usedGold">누적 사용 제니: 0</div>
 			<div class="status" id="usedItems">누적 사용 정수: 0개</div>
+			<div class="status" id="returnedItems">녹아버린 검신: 0개</div>
 			<div class="status" id="nextCost">다음 단계 오버클럭 비용: 1,000,000 / 1개</div>
 			<div class="status" id="successRate">📈 현재 단계 성공 확률: 40%</div>
 			<button onclick="tryEnhance()">오버클럭</button>
-			<button id="startBtn" onclick="startAutoEnhance()">자동 반복 오버클럭</button>
-			<button onclick="simulateUntilMax()">V 오버클럭</button>
+			<button id="startBtn" onclick="startAutoEnhance()">목표 자동 반복 오버클럭</button>
+			<button onclick="simulateUntilMax()">목표 오버클럭</button>
 			<button onclick="allReset()">초기화</button>
 			<button onclick="showProbabilityTable()">확률 보기</button>
 			<div id="autoControls" style="height: 60px; display: flex; gap: 5px;">

@@ -16,6 +16,7 @@ let totalGoldUsed = 0;
 let totalItemsUsed = 0;
 
 let lastEnhanceMode = "manual"; // "manual" | "repeat" | "simulate"
+let totalReturnedItems = 0;
 
 
 // 단계별 성공/실패 이미지
@@ -47,6 +48,11 @@ const stepImages = [
 ];
 
 const stats = enhanceRates.map(() => ({ success: 0, fail: 0 }));
+
+function getTargetLevel() {
+    // select의 value는 1~6, 내부 배열 인덱스는 0~5
+    return parseInt(document.getElementById("targetLevel").value, 10);
+}
 
 function tryEnhance() {
 	if (lastEnhanceMode !== "manual") {
@@ -91,8 +97,13 @@ function tryEnhance() {
 	} else {
 		stats[level].fail++;
 		showImage(stepImages[level].fail);
-		level = 0;
+		const failRewards = [1, 3, 5, 16, 40, 100];
+        const reward = failRewards[level];
+		console.log(failRewards[level], level)
+        totalReturnedItems += reward;
 		logMessage(`실패... 오버클럭 단계가 초기화되었습니다.`);
+
+		level = 0;
 	}
 
 	if (level == 0)
@@ -106,6 +117,8 @@ function tryEnhance() {
 	updateStatsTable();
 	updateNextCost();
 	updateSuccessRate();
+
+	document.getElementById("returnedItems").innerText = `녹아버린 검신: ${totalReturnedItems}개`;
 }
 
 function getSecureRandom() {
@@ -209,7 +222,13 @@ function simulateUntilMax() {
 	const simSuccessStats = [0, 0, 0, 0, 0, 0];
 	const simFailStats = [0, 0, 0, 0, 0, 0];
 
-	while (simLevel < enhanceRates.length) {
+	const failRewards = [1, 3, 5, 16, 40, 100]; // 단계별 실패 보상
+
+    let simReturnedItems = 0;
+
+	const target = getTargetLevel();
+
+	while (simLevel < target) {
 		const rate = enhanceRates[simLevel];
 		const roll = getSecureRandom();
 
@@ -223,6 +242,7 @@ function simulateUntilMax() {
 			simLevel++;
 		} else {
 			simFailStats[simLevel]++;
+			simReturnedItems += failRewards[simLevel];
 			simLevel = 0; // 실패하면 초기화
 		}
 	}
@@ -239,20 +259,23 @@ function simulateUntilMax() {
 	totalAttempts += simAttempts;
 	totalGoldUsed += simGold;
 	totalItemsUsed += simItems;
+	totalReturnedItems += simReturnedItems;
 
-	document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(level-1)}`;
+	document.getElementById("level").innerText = `현재 오버클럭 단계: ${toRoman(target-1)}`;
 	document.getElementById("totalAttempts").innerText = `총 오버클럭 시도: ${totalAttempts}회`;
 	document.getElementById("usedGold").innerText = `누적 사용 제니: ${totalGoldUsed.toLocaleString()}`;
 	document.getElementById("usedItems").innerText = `누적 사용 정수: ${totalItemsUsed}개`;
+	document.getElementById("returnedItems").innerText = `녹아버린 검신: ${totalReturnedItems}개`;
 	updateNextCost();
 	updateSuccessRate();
 
 	// 결과 로그 한 번에 출력
-	logMessage(`🎯 시뮬레이션 결과: V 도달!`);
+	logMessage(`🎯 시뮬레이션 결과: ${toRoman(target-1)} 도달!`);
 	logMessage(`🔁 총 시도 횟수: ${simAttempts}회`);
 	logMessage(`💰 사용한 제니: ${simGold.toLocaleString()}`);
 	logMessage(`📦 사용한 정수: ${simItems}개`);
-	for (let i = 0; i < simStats.length; i++) {
+	logMessage(`🧩 녹아버린 검신: ${simReturnedItems}개`);
+	for (let i = 0; i < target; i++) {
 		if (i !== 0)
 		{
 			logMessage(`${toRoman(i-1)} → ${toRoman(i)} : 성공 ${simSuccessStats[i]}회 / 실패 ${simFailStats[i]}회`);
@@ -282,6 +305,7 @@ function allReset(){
     document.getElementById('totalAttempts').innerText = '총 오버클럭 시도: 0회';
     document.getElementById('usedGold').innerText = '누적 사용 제니: 0';
     document.getElementById('usedItems').innerText = '누적 사용 정수: 0개';
+	document.getElementById("returnedItems").innerText = `녹아버린 검신: 0개`;
     document.getElementById('nextCost').innerText = '다음 단계 오버클럭 비용: 1,000,000 / 1개';
     document.getElementById('successRate').innerText = '📈 현재 단계 성공 확률: 40%';
 
@@ -391,10 +415,11 @@ function resumeAutoEnhance() {
 function runAutoEnhance() {
 	if (!autoEnhanceRunning || autoEnhancePaused) return;
 
-	if (level >= enhanceRates.length) {
-		stopAutoEnhance(); // 정지 처리 + 버튼 숨김
-		return;
-	}
+	const target = getTargetLevel();
+    if (level >= target) {
+        stopAutoEnhance();
+        return;
+    }
 
 	tryEnhance();
 	setTimeout(runAutoEnhance, 300);
